@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Address_Book_CS
 {
+    [Serializable]
     class Contact
     {
         string[] Name = new string[2];
@@ -31,7 +32,7 @@ namespace Address_Book_CS
 
         public string GetDetails()
         {
-            return "Name: " + FullName + Environment.NewLine + "Phone Number:" + PhoneNumber;
+            return "Name: " + FullName + Environment.NewLine + "Phone Number: " + PhoneNumber;
         }
 
 

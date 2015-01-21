@@ -14,6 +14,32 @@ namespace Address_Book_CS
 
         public static long PhoneNumber { get; set; }
 
+        static void SaveFile(BinaryFormatter formatter, AddressBook addressBook)
+        {
+            using (Stream output = File.Create("contacts.dat"))
+            {
+                formatter.Serialize(output, addressBook);
+            }
+        }
+
+        static AddressBook LoadFile(BinaryFormatter formatter)
+        {
+            if (File.Exists("contacts.dat"))
+            {
+                AddressBook addressBook;
+                using (Stream input = File.OpenRead("contacts.dat"))
+                {
+                    addressBook = (AddressBook) formatter.Deserialize(input);
+                }
+                return addressBook;
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.");
+                return new AddressBook();
+            }
+        }
+
         static void Main(string[] args)
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -25,61 +51,75 @@ namespace Address_Book_CS
             Contact contact4 = null;
             Contact contact5 = null;
 
-            while (true) {
-                if (File.Exists("contacts.dat"))
+            if (File.Exists("contacts.dat"))
+            {
+                addressBook = LoadFile(formatter);
+            }
+            else
+            {
+                addressBook = new AddressBook();
+                SaveFile(formatter, addressBook);
+            }
+
+            while(true){
+                Console.WriteLine("Enter full name to get or add a contact.");
+                FullName = Console.ReadLine();
+
+
+                if (FullName.ToLower() == "save")
                 {
-                    using (Stream input = File.OpenRead("contacts.dat"))
-                    {
-                        addressBook = (AddressBook) formatter.Deserialize(input);
-                    }
+                    SaveFile(formatter, addressBook);
+                    Console.Clear();
+
+                    Console.WriteLine("Contacts saved.");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
                 else
                 {
-                    using (Stream output = File.Create("contacts.dat"))
+                    if (!addressBook.Contacts.Keys.Contains(FullName))
                     {
-                        formatter.Serialize(output, addressBook);
-                    }
-                }
+                        Console.WriteLine("Enter phone number to add contact.");
+                        PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                        if (contact1 == null)
+                        {
+                            contact1 = new Contact(FullName, PhoneNumber);
+                            addressBook.AddContact(contact1);
+                            SaveFile(formatter, addressBook);
+                        }
+                        else if (contact2 == null)
+                        {
+                            contact2 = new Contact(FullName, PhoneNumber);
+                            addressBook.AddContact(contact2);
+                            SaveFile(formatter, addressBook);
+                        }
+                        else if (contact3 == null)
+                        {
+                            contact3 = new Contact(FullName, PhoneNumber);
+                            addressBook.AddContact(contact3);
+                            SaveFile(formatter, addressBook);
 
-
-            Console.WriteLine("Enter full name to get or add a contact.");
-            FullName = Console.ReadLine();
-
-            if (!addressBook.Contacts.Keys.Contains(FullName)) //THIS IS ALWAYS TRUE!!!! WHYYYYYYYYYYYYYY
-                {
-                    Console.WriteLine("Enter phone number to add contact.");
-                    PhoneNumber = Convert.ToInt64(Console.ReadLine());
-                    if (contact1 == null)
-                    {
-                        contact1 = new Contact(FullName, PhoneNumber);
-                        addressBook.AddContact(contact1); //Contact doesn't get added to dictionary???
+                        }
+                        else if (contact4 == null)
+                        {
+                            contact4 = new Contact(FullName, PhoneNumber);
+                            addressBook.AddContact(contact4);
+                            SaveFile(formatter, addressBook);
+                        }
+                        else if (contact5 == null)
+                        {
+                            contact5 = new Contact(FullName, PhoneNumber);
+                            addressBook.AddContact(contact5);
+                            SaveFile(formatter, addressBook);
+                        }
                     }
-                    else if (contact2 == null)
+                    else
                     {
-                        contact2 = new Contact(FullName, PhoneNumber);
-                        addressBook.AddContact(contact2);
+                        Console.WriteLine(addressBook.Contacts[FullName].GetDetails());
+                        Console.ReadLine();
                     }
-                    else if (contact3 == null)
-                    {
-                        contact3 = new Contact(FullName, PhoneNumber);
-                        addressBook.AddContact(contact3);
-                    }
-                    else if (contact4 == null)
-                    {
-                        contact4 = new Contact(FullName, PhoneNumber);
-                        addressBook.AddContact(contact4);
-                    }
-                    else if (contact5 == null)
-                    {
-                        contact5 = new Contact(FullName, PhoneNumber);
-                        addressBook.AddContact(contact5);
-                    }
+                    Console.Clear();
                 }
-                else
-                {
-                    Console.WriteLine(addressBook.Contacts[FullName].GetDetails());
-                }
-                Console.Clear();
             }
         }
     }
