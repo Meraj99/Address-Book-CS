@@ -9,11 +9,16 @@ namespace Address_Book_CS
     [Serializable]
     class AddressBook
     {
-        private Dictionary<string, Contact> _contacts; //Hmm, this doesn't exist in the current context
+        private Dictionary<string, Contact> _contacts;
         public Dictionary<string, Contact> Contacts
         {
             get { return _contacts ?? (_contacts = new Dictionary<string, Contact>()); }
             set { _contacts = value; }
+        }
+
+        public AddressBook()
+        {
+            _contacts = new Dictionary<string, Contact>();
         }
 
         public void AddContact(Contact contact)

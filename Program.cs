@@ -25,35 +25,34 @@ namespace Address_Book_CS
             Contact contact4 = null;
             Contact contact5 = null;
 
-            while (true) { 
-            if (!File.Exists("contacts.dat"))
-            {
-                using (Stream output = File.Create("contacts.dat"))
+            while (true) {
+                if (File.Exists("contacts.dat"))
                 {
-                    formatter.Serialize(output, addressBook);
+                    using (Stream input = File.OpenRead("contacts.dat"))
+                    {
+                        addressBook = (AddressBook) formatter.Deserialize(input);
+                    }
                 }
-            }
-            else
-            {
-                using (Stream input = File.OpenRead("contacts.dat"))
+                else
                 {
-                    addressBook = (AddressBook) formatter.Deserialize(input);
+                    using (Stream output = File.Create("contacts.dat"))
+                    {
+                        formatter.Serialize(output, addressBook);
+                    }
                 }
-            }
 
-            
 
             Console.WriteLine("Enter full name to get or add a contact.");
             FullName = Console.ReadLine();
 
-                if (!addressBook.Contacts.ContainsKey(FullName)) //THIS IS ALWAYS TRUE!!!! WHYYYYYYYYYYYYYY
+            if (!addressBook.Contacts.Keys.Contains(FullName)) //THIS IS ALWAYS TRUE!!!! WHYYYYYYYYYYYYYY
                 {
                     Console.WriteLine("Enter phone number to add contact.");
                     PhoneNumber = Convert.ToInt64(Console.ReadLine());
                     if (contact1 == null)
                     {
                         contact1 = new Contact(FullName, PhoneNumber);
-                        addressBook.Contacts.Add(FullName, contact1);
+                        addressBook.Contacts.Add(FullName, contact1); //Contact doesn't get added to dictionary???
                     }
                     else if (contact2 == null)
                     {
