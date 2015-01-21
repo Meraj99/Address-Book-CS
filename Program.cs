@@ -12,7 +12,7 @@ namespace Address_Book_CS
     {
         public static string FullName { get; set; }
 
-        public static int PhoneNumber { get; set; }
+        public static long PhoneNumber { get; set; }
 
         static void Main(string[] args)
         {
@@ -46,10 +46,10 @@ namespace Address_Book_CS
             Console.WriteLine("Enter full name to get or add a contact.");
             FullName = Console.ReadLine();
 
-                if (!addressBook.Contacts.ContainsKey(FullName)) //NullReferenceException here... <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                if (!addressBook.Contacts.ContainsKey(FullName)) //THIS IS ALWAYS TRUE!!!! WHYYYYYYYYYYYYYY
                 {
                     Console.WriteLine("Enter phone number to add contact.");
-                    PhoneNumber = Convert.ToInt32(Console.ReadLine());
+                    PhoneNumber = Convert.ToInt64(Console.ReadLine());
                     if (contact1 == null)
                     {
                         contact1 = new Contact(FullName, PhoneNumber);

@@ -12,7 +12,7 @@ namespace Address_Book_CS
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
 
 
 
@@ -20,7 +20,7 @@ namespace Address_Book_CS
 
 
 
-        public Contact(string fullName, int phoneNumber)
+        public Contact(string fullName, long phoneNumber)
         {
             FullName = fullName;
             Name = FullName.Split(' ');
