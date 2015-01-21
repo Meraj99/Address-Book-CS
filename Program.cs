@@ -52,27 +52,27 @@ namespace Address_Book_CS
                     if (contact1 == null)
                     {
                         contact1 = new Contact(FullName, PhoneNumber);
-                        addressBook.Contacts.Add(FullName, contact1); //Contact doesn't get added to dictionary???
+                        addressBook.AddContact(contact1); //Contact doesn't get added to dictionary???
                     }
                     else if (contact2 == null)
                     {
                         contact2 = new Contact(FullName, PhoneNumber);
-                        addressBook.Contacts.Add(FullName, contact2);
+                        addressBook.AddContact(contact2);
                     }
                     else if (contact3 == null)
                     {
                         contact3 = new Contact(FullName, PhoneNumber);
-                        addressBook.Contacts.Add(FullName, contact3);
+                        addressBook.AddContact(contact3);
                     }
                     else if (contact4 == null)
                     {
                         contact4 = new Contact(FullName, PhoneNumber);
-                        addressBook.Contacts.Add(FullName, contact4);
+                        addressBook.AddContact(contact4);
                     }
                     else if (contact5 == null)
                     {
                         contact5 = new Contact(FullName, PhoneNumber);
-                        addressBook.Contacts.Add(FullName, contact5);
+                        addressBook.AddContact(contact5);
                     }
                 }
                 else
