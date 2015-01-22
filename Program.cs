@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Address_Book_CS
 {
-    class Program
+    internal class Program
     {
         public static string FullName { get; set; }
 
-        public static long PhoneNumber { get; set; }
+        public static string PhoneNumber { get; set; }
+        public static string Email { get; set;}
 
-        static void SaveFile(BinaryFormatter formatter, AddressBook addressBook)
+    static void SaveFile(BinaryFormatter formatter, AddressBook addressBook)
         {
             using (Stream output = File.Create("contacts.dat"))
             {
@@ -77,10 +78,15 @@ namespace Address_Book_CS
                     if (!addressBook.Contacts.Keys.Contains(FullName))
                     {
                         Console.Clear();
-                        Console.WriteLine("Enter phone number to add contact.");
-                        PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                        Console.WriteLine("Enter phone number.");
+                        PhoneNumber = Console.ReadLine();
 
-                        contacts.Add(new Contact(FullName, PhoneNumber));
+                        Console.WriteLine("Enter email address (optional).");
+                        Email = Console.ReadLine();
+                        if (Email == "") Email = "N/A";
+
+
+                        contacts.Add(new Contact(FullName, PhoneNumber, Email));
                         addressBook.AddContact(contacts[contacts.Count - 1]);
                         SaveFile(formatter, addressBook);
                         

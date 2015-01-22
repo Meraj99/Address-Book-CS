@@ -11,7 +11,8 @@ namespace Address_Book_CS
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public long PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
 
 
 
@@ -19,18 +20,19 @@ namespace Address_Book_CS
 
 
 
-        public Contact(string fullName, long phoneNumber)
+        public Contact(string fullName, string phoneNumber, string email)
         {
             FullName = fullName;
             string[] name = FullName.Split(' ');
             FirstName = name[0];
             LastName = name[1];
             PhoneNumber = phoneNumber;
+            Email = email;
         }
 
         public string GetDetails()
         {
-            return "Name: " + FullName + Environment.NewLine + "Phone Number: " + PhoneNumber;
+            return "Name: " + FullName + Environment.NewLine + "Phone Number: " + PhoneNumber + Environment.NewLine + "Email: " + Email;
         }
 
 
