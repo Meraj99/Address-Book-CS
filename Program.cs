@@ -42,14 +42,10 @@ namespace Address_Book_CS
 
         static void Main(string[] args)
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            AddressBook addressBook = new AddressBook();
+            var formatter = new BinaryFormatter();
+            AddressBook addressBook;
 
-            Contact contact1 = null;
-            Contact contact2 = null;
-            Contact contact3 = null;
-            Contact contact4 = null;
-            Contact contact5 = null;
+            var contacts = new List<Contact>();
 
             if (File.Exists("contacts.dat"))
             {
@@ -62,7 +58,8 @@ namespace Address_Book_CS
             }
 
             while(true){
-                Console.WriteLine("Enter full name to get or add a contact.");
+                Console.WriteLine("Enter full name to get or add a contact." + Environment.NewLine);
+                Console.WriteLine("Contacts: " + addressBook.Contacts.Count);
                 FullName = Console.ReadLine();
 
 
@@ -79,42 +76,18 @@ namespace Address_Book_CS
                 {
                     if (!addressBook.Contacts.Keys.Contains(FullName))
                     {
+                        Console.Clear();
                         Console.WriteLine("Enter phone number to add contact.");
                         PhoneNumber = Convert.ToInt64(Console.ReadLine());
-                        if (contact1 == null)
-                        {
-                            contact1 = new Contact(FullName, PhoneNumber);
-                            addressBook.AddContact(contact1);
-                            SaveFile(formatter, addressBook);
-                        }
-                        else if (contact2 == null)
-                        {
-                            contact2 = new Contact(FullName, PhoneNumber);
-                            addressBook.AddContact(contact2);
-                            SaveFile(formatter, addressBook);
-                        }
-                        else if (contact3 == null)
-                        {
-                            contact3 = new Contact(FullName, PhoneNumber);
-                            addressBook.AddContact(contact3);
-                            SaveFile(formatter, addressBook);
 
-                        }
-                        else if (contact4 == null)
-                        {
-                            contact4 = new Contact(FullName, PhoneNumber);
-                            addressBook.AddContact(contact4);
-                            SaveFile(formatter, addressBook);
-                        }
-                        else if (contact5 == null)
-                        {
-                            contact5 = new Contact(FullName, PhoneNumber);
-                            addressBook.AddContact(contact5);
-                            SaveFile(formatter, addressBook);
-                        }
+                        contacts.Add(new Contact(FullName, PhoneNumber));
+                        addressBook.AddContact(contacts[contacts.Count - 1]);
+                        SaveFile(formatter, addressBook);
+                        
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine(addressBook.Contacts[FullName].GetDetails());
                         Console.ReadLine();
                     }
