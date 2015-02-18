@@ -61,6 +61,7 @@ namespace Address_Book_CS
             while(true){
                 Console.WriteLine("Enter full name to get or add a contact." + Environment.NewLine);
                 Console.WriteLine("Contacts: " + addressBook.Contacts.Count);
+                Console.WriteLine("© Meraj Ahmed");
                 FullName = Console.ReadLine();
 
 
@@ -78,8 +79,20 @@ namespace Address_Book_CS
                     if (!addressBook.Contacts.Keys.Contains(FullName))
                     {
                         Console.Clear();
-                        Console.WriteLine("Enter phone number.");
-                        PhoneNumber = Console.ReadLine();
+
+                        do
+                        {
+                            Console.WriteLine("Enter phone number.");
+                            PhoneNumber = Console.ReadLine();
+                            if (PhoneNumber == "")
+                            {
+                                Console.WriteLine("Phone number is required.");
+                                Console.ReadLine();
+                                Console.Clear();
+
+                                PhoneNumber = "Invalid";
+                            }
+                        } while (PhoneNumber == "Invalid");
 
                         Console.WriteLine("Enter email address (optional).");
                         Email = Console.ReadLine();
