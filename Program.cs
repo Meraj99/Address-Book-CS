@@ -59,11 +59,12 @@ namespace Address_Book_CS
             }
 
             while(true){
-                Console.WriteLine("Enter full name to get or add a contact." + Environment.NewLine);
+                Console.WriteLine("Enter full name to get or add a contact.");
+                Console.WriteLine("Type delete to delete a contact." + Environment.NewLine);
                 Console.WriteLine("Contacts: " + addressBook.Contacts.Count);
                 Console.WriteLine("© Meraj Ahmed");
                 FullName = Console.ReadLine();
-
+                Console.Clear();
 
                 if (FullName.ToLower() == "save")
                 {
@@ -74,12 +75,32 @@ namespace Address_Book_CS
                     Console.ReadLine();
                     Console.Clear();
                 }
+                else if (FullName.ToLower() == "delete")
+                {
+                    Console.WriteLine("Type the full name of the contact you would like to delete.");
+                    FullName = Console.ReadLine();
+                    Console.Clear();
+
+                    if (addressBook.Contacts.ContainsKey(FullName))
+                    {
+                        addressBook.Contacts.Remove(FullName);
+                        SaveFile(formatter, addressBook);
+
+                        Console.WriteLine("Contact successfully deleted.");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Contact does not exist.");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                }
                 else
                 {
                     if (!addressBook.Contacts.Keys.Contains(FullName))
                     {
-                        Console.Clear();
-
                         do
                         {
                             Console.WriteLine("Enter phone number.");
